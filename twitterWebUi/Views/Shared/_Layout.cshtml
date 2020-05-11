@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=,, initial-scale=1.0">
+    <title>Home/Twitter</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link href="~/css/home.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/font_awesome/css/all.min.css">
+</head>
+<body>
+
+    <div class="row">
+        <div id="menu" class="col-md-3">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><img style="height: 50px;margin-left:-10px;" src="~/img/Twitter_Logo_Blue.png" alt=""></li>
+                <li class="list-group-item lgi"><i class="fas fa-home"></i><span><a href="@Url.Action("Home","Home")" role="button">Home</a></span></li>
+                <li class="list-group-item lgi"><i class="fas fa-hashtag"></i><span><a href="@Url.Action("Explore","Home")" role="button">Explore</a></span></li>
+                <li class="list-group-item lgi"><i class="far fa-bell"></i><span><a href="#" role="button">Notifications</a></span></li>
+                <li class="list-group-item lgi"><i class="far fa-envelope"></i><span><a href="#" role="button">Messages</a></span></li>
+                <li class="list-group-item lgi"><i class="far fa-bookmark"></i><span><a href="#" role="button">Bookmarks</a></span></li>
+                <li class="list-group-item lgi"><i class="far fa-list-alt"></i><span><a href="#" role="button">Lists</a></span></li>
+                <li class="list-group-item lgi"><i class="far fa-user"></i><span><a href="@Url.Action("Profile","Home")" role="button">Profile</a></span></li>
+                <li class="list-group-item lgi"><i class="fas fa-ellipsis-h"></i><span><a href="#" role="button">More</a></span></li>
+                <li class="list-group-item lgi"><div class="button"><a id="leftsidebutton" href="@Url.Action("Home","Home")" class="btn btn-info" role="button">Tweet</a></div></li>
+                 <div style="position:fixed;bottom:0;">
+                    <div class="tweets">
+                      <div style="position:relative;top:-15px" class="img-div">
+                        <img style="height: 49px;" class="rounded-circle" src="~/img/user.png" alt="">
+                      </div>
+                      <div class="carduser">
+                        <div class="cardusername">
+                          <p id="cardusername">Oguzcan Ocal</p>
+                        </div>
+                        <div class="carduserdescription">
+                          <p id="carduserdescription"><a href="/Account/Login">Log out</a></p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </ul>
+        </div>
+        <div class="col-md-5">
+          @RenderBody()
+        </div>
+        <div id="leftsidebar" class="col-md-4">
+          <div class="main">
+            <div class="form-group has-search">
+              <span class="fa fa-search form-control-feedback"></span>
+              <input type="text" class="form-control" placeholder="Search Twitter">
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h2>Trends for you</h2>
+              <span class="fas fa-cog"></span>
+            </div>
+            <div class="card-body1">
+                <div class="categori">
+                  <p>Trending in Turkey</p>
+                  <span class="fas fa-chevron-down"></span>
+                </div>
+                <div class="categoriTitle">
+                  <p class="subject">#GelecekİçinErtele</p>
+                  <p class="like">202K Tweets</p>
+                </div>
+            </div>
+            <div class="card-body1">
+                <div class="categori">
+                  <p>Trending in Turkey</p>
+                  <span class="fas fa-chevron-down"></span>
+                </div>
+                <div class="categoriTitle">
+                  <p class="subject">#GelecekİçinErtele</p>
+                  <p class="like">202K Tweets</p>
+                </div>
+            </div>
+            <div class="card-body1">
+                <div class="categori">
+                  <p>Trending in Turkey</p>
+                  <span class="fas fa-chevron-down"></span>
+                </div>
+                <div class="categoriTitle">
+                  <p class="subject">#GelecekİçinErtele</p>
+                  <p class="like">202K Tweets</p>
+                </div>
+            </div>
+            <div class="card-body1">
+                <div class="categori">
+                  <p>Trending in Turkey</p>
+                  <span class="fas fa-chevron-down"></span>
+                </div>
+                <div class="categoriTitle">
+                  <p class="subject">#GelecekİçinErtele</p>
+                  <p class="like">202K Tweets</p>
+                </div>
+            </div>
+            <div>
+              <p class="details">Show more</p>
+            </div>
+          </div>
+          <br>
+          <div class="card">
+            <div class="card-body">
+              <h2>Who to Follow</h2>
+            </div>
+            @if(TempData["followList"]!=null){
+              var users = TempData["followList"] as List<twitterWebUi.Models.User>;
+              @foreach (var user in users)
+              {
+                <div class="card-body1">
+                  <div class="categori">
+                    <div style="display: inline-block">
+                      <img src="~/img/Twitter_Logo_Blue.png" style="border: 1px solid red;margin-left:10px;margin-top:10px" class="rounded-circle" width="50px"height="50px"> 
+                    </div>
+                    <div style="display:inline-block;height:40px;width:150px;padding-top:10px;">
+                      <div style="display:relative;height:40px;width:150px;">
+                        <p id="user" class="subject">@user.Username</p>
+                      </div>
+
+                    </div>
+                    <div id="follow">
+                      <button  type="button" class="btn btn-outline-primary">Follow</button>
+                    </div>
+                  </div>
+                </div>
+              }
+            }
+            <div>
+              <p class="details">Show more</p>
+            </div>
+            </div>
+          </div>
+          
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

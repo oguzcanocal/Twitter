@@ -1,0 +1,254 @@
+@model twitterWebUi.ViewModel.ContainVM
+@{
+    Layout="_Layout";
+}
+
+<div class="writeSection">
+  <div class="writeSectionHeader">
+      <h4>Home</h4>
+  </div>
+</div>
+<div style="height:12.5%">
+  <div class="body-form">
+    <div id="avatarPhoto" >
+      <img style="height: 49px;" class="rounded-circle" src="~/img/user.png" alt="">
+    </div>
+    @using(Html.BeginForm("Create","Tweet",FormMethod.Post)){
+      <div id="textarea">
+        @Html.HiddenFor(model=>model.CreateVM.User.Id)
+        @Html.TextAreaFor(model=>model.CreateVM.Tweet.Description,new{@class="form-control",placeholder="What's happening?",rows="2"})
+      </div>
+      <div id="options">
+        <span class="far fa-image fa-lg icon"></span>
+        <span class="far fa-chart-bar fa-lg icon"></span>
+        <span class="far fa-smile fa-lg icon"></span>
+        <button type="submit" class="btn btn-primary tweet">Tweet</button>    
+      </div>
+    }
+  </div>
+</div>
+<div class="border1"></div>
+@foreach (twitterWebUi.Models.Tweet item in Model.ListVM.Tweets)
+{
+<div class="row mainrow" data-tweet-id="@item.Id" data-user-id="@item.UserId">
+  <div class="tweets">
+    <div class="img-div">
+      <img style="height: 49px;" class="rounded-circle" src="~/img/user.png" alt="">
+    </div>
+    <div class="carduser">
+      <div class="cardusername">
+        <p id="cardusername">@Model.ListVM.User.Username</p>
+      </div>
+      <div class="carduserdescription">
+        <p id="carduserdescription">@item.Description</p>
+      </div>
+    </div>
+    <div class="cardfooter">
+      <button class="btn iconbtn" data-user-id="@item.UserId" data-tweet-id="@item.Id" data-toggle="modal" data-target="#MyModal"><span class="far fa-comment Ficon"><span class="number">@item.CommentNumber</span></span></button>
+      <button class="btn iconbtn iconbtnretweet"data-retweet="false" data-user-id="@item.UserId" data-tweet-id="@item.Id"><span class="fas fa-retweet Ficon iconretweet"><span class="number retweet-count">@item.RetweetNumber</span></span></button>
+      <button class="btn iconbtn iconbtnheart" data-liked="false" data-user-id="@item.UserId" data-tweet-id="@item.Id"><span class="far fa-heart Ficon iconheart"><span class="number like-count">@item.LikedNumber</span></span></button>
+      <button class="btn iconbtn"><span class="fas fa-external-link-alt Ficon"></span></button>
+    </div>
+  </div>
+</div>
+}
+
+<div class="modal fade" data-user-id="" data-tweet-id="" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button style="color:#45b1f3" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="media">
+            <img style="height: 30px;" src="~/img/user.png" class="mr-3" alt="...">
+            <div class="media-body">
+              <h6 id="cardusername " class="mt-0 modalusername"></h6>
+              <div id="carduserdescription" class="modaldescription">
+                
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 30px;" class="form-group media">
+            <img style="height: 30px;" src="~/img/user.png" class="mr-3" alt="...">
+            <div class="media-body">       
+              <textarea class="modal-textarea" style="width:100%;" placeholder="Tweet your reply" rows="2"col="300"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div id="optionsmodal">
+          <span class="far fa-image fa-lg iconmodal"></span>
+          <span class="far fa-chart-bar fa-lg iconmodal"></span>
+          <span class="far fa-smile fa-lg iconmodal"></span>
+          <button type="submit" class="btn btn-primary tweet modalreply">Reply</button>    
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="crossorigin="anonymous"></script>
+<script>
+
+$(function(){
+  var tweetids = [];
+  $(".mainrow").each(function(i,e){
+    tweetids.push($(e).data("tweet-id"));
+  });
+
+  var userid = $(".mainrow").data("user-id")
+  $.ajax({
+    method:"Post",
+    url:"/Tweet/GetLiked",
+    data:{ids:tweetids,uid:userid}
+  }).done(function(data){
+    if(data.result !=null){
+      for(var i=0; i<10;i++){
+        var id = data.result[i];
+        var likedTweet = $("div[data-tweet-id="+ id + "]");
+        var btn = likedTweet.find("button[data-liked]");
+        var span = btn.find("span.iconheart");
+        btn.attr("data-liked",true);
+        span.css("color","#E0245E");
+        span.removeClass("far fa-heart");
+        span.addClass("fas fa-heart");
+      }
+    }
+  })
+
+  $(".iconbtnheart").click(function(){
+      var btn = $(this);
+      var liked = btn.data("liked");
+      var userid = btn.data("user-id");
+      var tweetid = btn.data("tweet-id");
+      var span = btn.find("span.iconheart");
+      var spancount = btn.find("span.like-count")
+
+      $.ajax({
+        method:"POST",
+        url: "/Tweet/SetLiked",
+        data:{"liked":liked,"userid":userid,"tweetid":tweetid}
+      }).done(function(data){
+        if(liked==false){
+          btn.data("liked",true);
+          span.css("color","#E0245E");
+          span.removeClass("far fa-heart");
+          span.addClass("fas fa-heart");
+          spancount.text(data.result);
+        }
+        else{
+          btn.data("liked",false);
+          span.css("color","#212530");
+          span.removeClass("fas fa-heart");
+          span.addClass("far fa-heart");
+          spancount.text(data.result);
+        }
+
+      })
+  })
+
+
+})
+
+//-----------------------------------------------------------
+$(function(){
+  var tweetids = [];
+  $(".mainrow").each(function(i,e){
+    tweetids.push($(e).data("tweet-id"));
+  });
+
+  var userid = $(".mainrow").data("user-id")
+  $.ajax({
+    method:"Post",
+    url:"/Tweet/GetRetweet",
+    data:{ids:tweetids,uid:userid}
+  }).done(function(data){
+    if(data.result !=null){
+      for(var i=0; i<10;i++){
+        var id = data.result[i];
+        var Retweet = $("div[data-tweet-id="+ id + "]");
+        var btn = Retweet.find("button[data-retweet]");
+        var span = btn.find("span.iconretweet");
+        btn.attr("data-retweet",true);
+        span.css("color","#17BF63");
+      }
+    }
+  })
+
+  $(".iconbtnretweet").click(function(){
+      var btn = $(this);
+      var retweet = btn.data("retweet");
+      var userid = btn.data("user-id");
+      var tweetid = btn.data("tweet-id");
+      var span = btn.find("span.iconretweet");
+      var spancount = btn.find("span.retweet-count")
+
+      $.ajax({
+        method:"POST",
+        url: "/Tweet/SetRetweet",
+        data:{"retweet":retweet,"userid":userid,"tweetid":tweetid}
+      }).done(function(data){
+        if(retweet==false){
+          btn.data("retweet",true);
+          span.css("color","#17BF63");
+          spancount.text(data.result);
+        }
+        else{
+          btn.data("retweet",false);
+          span.css("color","#212530");
+          spancount.text(data.result);
+        }
+
+      })
+  })
+
+
+})
+
+//-----------------------------------------------------
+
+
+$(function(){
+  $('#MyModal').on('show.bs.modal', function (e) {
+    var btn = $(e.relatedTarget);
+    var tweetid = btn.data("tweet-id");
+    var userid = btn.data("user-id");
+    var modalusername = $(".modalusername");
+    var modaldescription = $(".modaldescription");
+    var modal = $(".modal fade");
+    modal.data("user-id",userid);
+    modal.data("tweet-id",tweetid);
+    
+    $.ajax({
+      method:"POST",
+      url: "/Tweet/GetDescription",
+      data:{"tweetid":tweetid,"userid":userid}
+    }).done(function(data){
+      modalusername.text(data.result.username);
+      modaldescription.text(data.result.result); 
+    })
+    $(".modalreply").click(function(){
+    var commentdescription = $(".modal-textarea").val();
+    $.ajax({
+      method:"POST",
+      url:"/Tweet/CreateComment",
+      data:{"tweetid":tweetid,"userid":userid,"commentdescription":commentdescription}
+    }).done(function(){
+      $(".modal-textarea").val(' ');
+      $(".modal-textarea").attr('placeholder', 'Tweet your reply');
+    })
+    });
+
+  })
+
+});
+
+
+</script>
+
+
