@@ -44,6 +44,21 @@ namespace twitterWebUi.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("twitterWebUi.Models.Follower", b =>
+                {
+                    b.Property<int>("FollowerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FollowerId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Followers");
+                });
+
             modelBuilder.Entity("twitterWebUi.Models.Liked", b =>
                 {
                     b.Property<int>("Id")
@@ -154,6 +169,15 @@ namespace twitterWebUi.Migrations
 
                     b.HasOne("twitterWebUi.Models.User", "User")
                         .WithMany("Comments")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("twitterWebUi.Models.Follower", b =>
+                {
+                    b.HasOne("twitterWebUi.Models.User", "User")
+                        .WithMany("Followers")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

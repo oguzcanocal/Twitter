@@ -14,13 +14,13 @@
         <div id="menu" class="col-md-3">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><img style="height: 50px;margin-left:-10px;" src="~/img/Twitter_Logo_Blue.png" alt=""></li>
-                <li class="list-group-item lgi"><i class="fas fa-home"></i><span><a href="@Url.Action("Home","Home")" role="button">Home</a></span></li>
+                <li class="list-group-item lgi"><i class="fas fa-home"></i><span><a href="@Url.Action("Index","Account")" role="button">Home</a></span></li>
                 <li class="list-group-item lgi"><i class="fas fa-hashtag"></i><span><a href="@Url.Action("Explore","Home")" role="button">Explore</a></span></li>
                 <li class="list-group-item lgi"><i class="far fa-bell"></i><span><a href="#" role="button">Notifications</a></span></li>
                 <li class="list-group-item lgi"><i class="far fa-envelope"></i><span><a href="#" role="button">Messages</a></span></li>
                 <li class="list-group-item lgi"><i class="far fa-bookmark"></i><span><a href="#" role="button">Bookmarks</a></span></li>
                 <li class="list-group-item lgi"><i class="far fa-list-alt"></i><span><a href="#" role="button">Lists</a></span></li>
-                <li class="list-group-item lgi"><i class="far fa-user"></i><span><a href="@Url.Action("Profile","Home")" role="button">Profile</a></span></li>
+                <li class="list-group-item lgi"><i class="far fa-user"></i><span><a href="@Url.Action("Profile","Account")" role="button">Profile</a></span></li>
                 <li class="list-group-item lgi"><i class="fas fa-ellipsis-h"></i><span><a href="#" role="button">More</a></span></li>
                 <li class="list-group-item lgi"><div class="button"><a id="leftsidebutton" href="@Url.Action("Home","Home")" class="btn btn-info" role="button">Tweet</a></div></li>
                  <div style="position:fixed;bottom:0;">
@@ -106,9 +106,10 @@
             </div>
             @if(TempData["followList"]!=null){
               var users = TempData["followList"] as List<twitterWebUi.Models.User>;
+              var uid = TempData["userid"];
               @foreach (var user in users)
               {
-                <div class="card-body1">
+                <div class="card-body1 follow-@user.Id">
                   <div class="categori">
                     <div style="display: inline-block">
                       <img src="~/img/Twitter_Logo_Blue.png" style="border: 1px solid red;margin-left:10px;margin-top:10px" class="rounded-circle" width="50px"height="50px"> 
@@ -117,10 +118,9 @@
                       <div style="display:relative;height:40px;width:150px;">
                         <p id="user" class="subject">@user.Username</p>
                       </div>
-
                     </div>
                     <div id="follow">
-                      <button  type="button" class="btn btn-outline-primary">Follow</button>
+                      <button data-follow-userid="@user.Id" data-userid="@uid" type="button" class="btn btn-outline-primary followbtn">Follow</button>
                     </div>
                   </div>
                 </div>
@@ -139,3 +139,23 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
 </html>
+<script>
+$(function(){
+  $(".followbtn").click(function(){
+    var followid = $(this).data("follow-userid");
+    var userid = $(this).data("userid");
+
+    $.ajax({
+      method:"POST",
+      url: "/Tweet/AddFollower",
+      data:{followerid:followid,uid:userid}
+    }).done(function(data){
+      var divclass = ".follow-"+data.result;
+      var div = $(divclass);
+      div.remove();
+
+    })
+
+  });
+});
+</script>

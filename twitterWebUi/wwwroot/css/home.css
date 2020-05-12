@@ -253,6 +253,11 @@
         text-align: center;
         border-radius: 30px;
     }
+    #follow button:hover {
+        background-color: transparent;
+    }
+    
+    
     
     .writeSection{
         max-width: 79%;
@@ -404,6 +409,7 @@
         position: static;
     }
     .mainrow{
+        border-top:1px solid #E6ECF0;
         max-width: 79%;
         margin: auto;
 

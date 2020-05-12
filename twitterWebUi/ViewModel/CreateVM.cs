@@ -11,5 +11,6 @@ namespace twitterWebUi.ViewModel
         }
         public Tweet Tweet { get; set; }
         public User User { get; set; }
+
     }
 }

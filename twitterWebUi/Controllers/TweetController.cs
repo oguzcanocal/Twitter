@@ -142,5 +142,15 @@ namespace twitterWebUi.Controllers
             return Json(new{});
         }
 
+        public IActionResult AddFollower(int followerid,int uid){
+
+            Follower follower =new Follower();
+            follower.FollowerId= followerid;
+            follower.UserId = uid;
+            db.Followers.Add(follower);
+            db.SaveChanges();
+
+            return Json(new{ result=follower.FollowerId});
+        }
     }
 }

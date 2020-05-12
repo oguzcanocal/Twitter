@@ -17,11 +17,9 @@ namespace twitterWebUi.Controllers
         {
             var twt = db.Tweets.Where(x => x.UserId == Id).ToList();
             User user = db.Users.Where(x => x.Id == Id).FirstOrDefault();
-            List<User> users = new List<User>();
+            TempData["userid"] = user.Id;
             Random rnd = new Random();
             int i = rnd.Next(1,3);
-            users = db.Users.OrderBy(x => x.CreateDate).Skip(i).Take(3).ToList();
-            TempData["followList"] = users;
             ContainVM model = new ContainVM();
             model.ListVM.Tweets = twt;
             model.ListVM.User.Id = Id;
@@ -32,6 +30,13 @@ namespace twitterWebUi.Controllers
             model.ListVM.User.CreateDate = user.CreateDate;
             model.CreateVM.User.Id = Id;
             model.CreateVM.Tweet.UserId = Id;
+            
+            List<User> users = new List<User>();
+            users = db.Users.ToList();
+            users.Remove(user);
+            users= users.Take(3).ToList();
+            TempData["followList"]=users;
+
             return View(model);
         }
         public IActionResult Login()
@@ -60,6 +65,8 @@ namespace twitterWebUi.Controllers
                     User.CreateVM.User.Tweets = user2.Tweets;
                     User.CreateVM.User.Email = user2.Email;
                     User.CreateVM.User.CreateDate = user2.CreateDate;
+
+
                     return RedirectToAction("Index", "Account", new { Id = user2.Id });
 
                 }
@@ -105,6 +112,10 @@ namespace twitterWebUi.Controllers
 
         public IActionResult ForgotPassword()
         {
+            return View();
+        }
+
+        public IActionResult Profile(){
             return View();
         }
 
