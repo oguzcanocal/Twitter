@@ -178,5 +178,13 @@ namespace twitterWebUi.Controllers
             return View("Login");
         }
 
+        public IActionResult Messages(){
+            return View();
+        }
+
+        public IActionResult Explore(){
+            return View();
+        }
+
     }
 }

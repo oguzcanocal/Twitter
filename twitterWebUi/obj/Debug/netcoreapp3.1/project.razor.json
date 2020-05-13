@@ -20521,6 +20521,16 @@
   "RootNamespace": "twitterWebUi",
   "Documents": [
     {
+      "FilePath": "c:\\Users\\Oğuzcan\\OneDrive\\Desktop\\Twitter\\twitterWebUi\\Views\\Shared\\_LayoutMessages.cshtml",
+      "TargetPath": "Views\\Shared\\_LayoutMessages.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Oğuzcan\\OneDrive\\Desktop\\Twitter\\twitterWebUi\\Views\\Account\\Messages.cshtml",
+      "TargetPath": "Views\\Account\\Messages.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Oğuzcan\\OneDrive\\Desktop\\Twitter\\twitterWebUi\\Views\\Account\\Profile.cshtml",
       "TargetPath": "Views\\Account\\Profile.cshtml",
       "FileKind": "mvc"
