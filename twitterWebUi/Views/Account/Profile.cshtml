@@ -1,4 +1,6 @@
+@model twitterWebUi.ViewModel.ListVM
 @{
+  
     Layout="_Layout";
 }
 <div class="contain">
@@ -16,19 +18,117 @@
     </div>
     <div>
       <img style="height: 130px;margin-top:-70px;margin-left:10px;border:1px solid red" class="rounded-circle img-fluid" src="~/img/user.png" alt="">
-       <button type="button" class="btn btn-outline-primary setupProfile">Set up Profile</button>
+       <a href="@Url.Action("ProfileEdit","Account",new{id=@Model.User.Id})" type="button" class="btn btn-outline-primary setupProfile">Set up Profile</a>
     </div>
     <div>
         <div>
-            <h6 class="mb-2 profileTitle">Oguzcan Ocal</h6>
+            <h6 class="mb-2 profileTitle">@Model.User.Username</h6>
             <div class="meta-wrap profileSubTitle">
-                OguzcanOcal
+                @Model.User.Username
             </div>
             <span class="far fa-calendar-alt fa-lg date"><span>    Joined March 2020</span></span>
             <div class="following">
-                <span><b style="color:black">150</b> Following</span>
-                <span><b style="color:black">100</b> Follower</span>
+                <span><b style="color:black">3 </b><a type="button"data-toggle="modal" data-target="#exampleModal"> Following</a></span>
+                <span><b style="color:black">1 </b><a type="button"data-toggle="modal" data-target="#Follower"> Follower</a></span>
+            </div>
+            <br>
+            <div>
+              <nav class="nav">
+                <a class="nav-link nav1" type="button"><span class="navitem">Tweets</span></a>
+                <a class="nav-link nav2" href="#"><span class="navitem">Tweets & Replies</span></a>
+                <a class="nav-link nav3" href="#"><span class="navitem">Media</span></a>
+                <a class="nav-link nav4" href="#"><span class="navitem">Likes</span></a>
+              </nav>
             </div>
         </div>
     </div>
+</div>
+@foreach (var item in Model.Tweets)
+{
+<div class="row mainrow" data-tweet-id="" data-user-id="">
+  <div class="tweets">
+    <div class="img-div">
+      <img style="height: 49px;" class="rounded-circle" src="~/img/user.png" alt="">
+    </div>
+    <div class="carduser">
+      <div class="cardusername">
+        <p id="cardusername">@Model.User.Username</p>
+      </div>
+      <div class="carduserdescription">
+        <p id="carduserdescription">@item.Description</p>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Following</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in Model.Users)
+        {
+                <div class="card-body1 ">
+                  <div class="categori">
+                    <div style="display: inline-block">
+                      <img src="~/img/Twitter_Logo_Blue.png" style="border: 1px solid red;margin-left:10px;margin-top:10px" class="rounded-circle" width="50px"height="50px"> 
+                    </div>
+                    <div style="display:inline-block;height:40px;width:150px;padding-top:10px;">
+                      <div style="display:relative;height:40px;width:150px;">
+                        <p id="user" class="subject">@item.Username</p>
+                      </div>
+                    </div>
+                    <div id="follow">
+                      <button data-follow-userid="" type="button" class="btn btn-outline-primary followbtn">UnFollow</button>
+                    </div>
+                  </div>
+                </div>
+        }
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="Follower" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Following</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        @foreach (var item in Model.FollowUsers)
+        {
+                <div class="card-body1">
+                  <div class="categori">
+                    <div style="display: inline-block">
+                      <img src="~/img/Twitter_Logo_Blue.png" style="border: 1px solid red;margin-left:10px;margin-top:10px" class="rounded-circle" width="50px"height="50px"> 
+                    </div>
+                    <div style="display:inline-block;height:40px;width:150px;padding-top:10px;">
+                      <div style="display:relative;height:40px;width:150px;">
+                        <p id="user" class="subject">@item.Username</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        }
+      </div>
+    </div>
+  </div>
 </div>

@@ -69,3 +69,8 @@ C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\obj\Debug\netcoreapp3.1\
 C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\obj\Debug\netcoreapp3.1\Razor\Views\Account\Register.cshtml.g.cs
 C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\obj\Debug\netcoreapp3.1\Razor\Views\Account\Index.cshtml.g.cs
 C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\bin\Debug\netcoreapp3.1\package-lock.json
+C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Redis.dll
+C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\bin\Debug\netcoreapp3.1\StackExchange.Redis.StrongName.dll
+C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_TweetsPartial.cshtml.g.cs
+C:\Users\Oğuzcan\OneDrive\Desktop\Twitter\twitterWebUi\obj\Debug\netcoreapp3.1\Razor\Views\Account\ProfileEdit.cshtml.g.cs

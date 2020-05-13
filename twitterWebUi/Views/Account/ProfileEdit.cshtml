@@ -1,0 +1,62 @@
+@model twitterWebUi.ViewModel.ContainVM
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="~/css/login.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">,
+</head>
+<body>
+
+    <div class="container">
+        <div class="logo-div">
+            <img id="logo" src="~/img/Twitter_Logo_Blue.png" alt="">
+        </div>
+        <div class="title-div">
+            <h1 class="title">Twitter'a giriş yap</h1>
+        </div>
+
+        @using (Html.BeginForm("ProfileEdit","Account",FormMethod.Post))
+        {
+            <div class="form">           
+                <div id="form-id" class="card-body px-lg-5">
+                    <form class="text-center" style="color: #757575;" action="#!">
+                        <div class="form-grp" class="md-form mt-3">
+                            @Html.HiddenFor(model=>model.EditVM.Id)
+                            <div class="form-title">Username</div>
+                            @Html.TextBoxFor(model =>model.EditVM.Username, new{@class="form-input form-control", @id="materialSubscriptionFormPasswords",@type="text"})
+                        </div>
+                        <div class="form-grp" class="md-form mt-3">
+                            <div class="form-title">Email</div>
+                            @Html.TextBoxFor(model =>model.EditVM.Email, new{@class="form-input form-control", @id="materialSubscriptionFormPasswords",@type="email"})
+                        </div>
+                        <!-- E-mai -->
+                        <div class="form-grp" class="md-form">
+                            <div  class="form-title">Password</div>
+                            
+                            @Html.TextBoxFor(model =>model.EditVM.Password, new{@class="form-input form-control", @id="materialSubscriptionFormPasswords",@type="password"})
+                        </div>
+                        <div class="form-grp" class="md-form">
+                            <div  class="form-title">Photo</div>
+                            @Html.TextBoxFor(model =>model.EditVM.imageUrl, new{@class="form-input form-control", @id="materialSubscriptionFormPasswords",@type="file"})
+                        </div>
+
+                    </form>
+                    <div class="button">
+                        <button type="submit" id="formButton"  class="btn btn-info">Düzenle</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

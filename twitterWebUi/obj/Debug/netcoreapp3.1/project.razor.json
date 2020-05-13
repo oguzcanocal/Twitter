@@ -20536,6 +20536,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\Oğuzcan\\OneDrive\\Desktop\\Twitter\\twitterWebUi\\Views\\Shared\\_TweetsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_TweetsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\Oğuzcan\\OneDrive\\Desktop\\Twitter\\twitterWebUi\\Views\\Account\\ForgotPassword.cshtml",
       "TargetPath": "Views\\Account\\ForgotPassword.cshtml",
       "FileKind": "mvc"
@@ -20543,6 +20548,11 @@
     {
       "FilePath": "c:\\Users\\Oğuzcan\\OneDrive\\Desktop\\Twitter\\twitterWebUi\\Views\\Account\\Login.cshtml",
       "TargetPath": "Views\\Account\\Login.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "c:\\Users\\Oğuzcan\\OneDrive\\Desktop\\Twitter\\twitterWebUi\\Views\\Account\\ProfileEdit.cshtml",
+      "TargetPath": "Views\\Account\\ProfileEdit.cshtml",
       "FileKind": "mvc"
     },
     {

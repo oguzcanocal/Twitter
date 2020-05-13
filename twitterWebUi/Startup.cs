@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Session;
 
 namespace twitterWebUi
 {
@@ -17,6 +18,12 @@ namespace twitterWebUi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddMvc();
+            services.AddDistributedMemoryCache();
+            services.AddSession(options=>{
+                options.IdleTimeout=TimeSpan.FromSeconds(3600);
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -29,6 +36,7 @@ namespace twitterWebUi
 
             app.UseRouting();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
